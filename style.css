@@ -537,21 +537,29 @@ footer {
     font-size: 1.2rem;
 }
 
+/* --- NAPRAWIONA LISTA Z IKONAMI --- */
 .custom-list {
     list-style: none;
     margin-bottom: 20px;
+    padding-left: 0;
 }
 
 .custom-list li {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    margin-bottom: 15px;
+    position: relative; /* Pozwala "przykleić" ikonę do rogu */
+    padding-left: 35px; /* Robi równy margines na tekst, żeby nie wchodził pod ikonę */
+    display: block; /* Usuwa problem ze ściskaniem kolumn (flex) */
+    text-align: left;
+    line-height: 1.6;
 }
 
-.custom-list i {
+.custom-list li i {
+    position: absolute;
+    left: 0;
+    top: 5px; /* Idealne wyrównanie do pierwszej linijki tekstu */
     color: var(--sea-green);
-    width: 20px;
+    font-size: 1.1rem;
+    width: 25px;
     text-align: center;
 }
 
@@ -668,14 +676,5 @@ footer {
 
     .content-placeholder h3 {
         font-size: 1.2rem !important;
-    }
-
-    /* Poprawa listy z ikonkami na telefonie */
-    .custom-list li {
-        align-items: flex-start; /* Sprawia, że ikona zostaje na górze, gdy tekst obok zawija się na dwie lub trzy linijki */
-    }
-
-    .custom-list i {
-        margin-top: 4px; /* Równa ikonę do pierwszej linijki tekstu */
     }
 }
