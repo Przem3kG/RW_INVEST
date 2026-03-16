@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Zamykanie menu po kliknięciu w jakikolwiek link nawigacji (dla wygody użytkownika mobilnego)
+    // Zamykanie menu po kliknięciu w jakikolwiek link nawigacji
     const links = navLinks.querySelectorAll('a');
     links.forEach(link => {
         link.addEventListener('click', () => {
@@ -31,4 +31,30 @@ document.addEventListener('DOMContentLoaded', () => {
             icon.classList.add('fa-bars');
         });
     });
+});
+// Oczekujemy na załadowanie strony (ten nasłuch pewnie już masz na górze pliku, ale można to dodać na dole)
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- ANIMACJE SCROLLOWANIA (Scroll Reveal) ---
+    // Pobieramy wszystkie elementy, które mają klasę .animate-on-scroll
+    const observerElements = document.querySelectorAll('.animate-on-scroll');
+
+    // Tworzymy obserwatora
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Jeśli element pojawi się w oknie przeglądarki (isIntersecting)
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible'); // Dodaj klasę animującą
+                observer.unobserve(entry.target); // Przestań obserwować po pierwszej animacji (animuje się tylko raz)
+            }
+        });
+    }, {
+        threshold: 0.1 // Animacja odpala się, gdy 10% elementu wejdzie na ekran
+    });
+
+    // Przypinamy obserwatora do każdego elementu
+    observerElements.forEach(element => {
+        observer.observe(element);
+    });
+
 });
