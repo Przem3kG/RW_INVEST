@@ -644,3 +644,38 @@ footer {
         height: 200px;
     }
 }
+/* --- POPRAWKI MOBILNE DLA PODSTRON (O nas, Galeria) --- */
+@media (max-width: 768px) {
+    .internal-page {
+        padding-top: 100px; /* Zmniejsza pustą przestrzeń na samej górze */
+        padding-bottom: 40px;
+    }
+
+    .page-title {
+        font-size: 1.8rem; /* Zmniejsza główny tytuł, żeby nie łamał się brzydko na kilka linii */
+        margin-bottom: 20px;
+    }
+
+    .content-placeholder {
+        padding: 20px 15px; /* Klawy zabieg: znacznie mniejsze marginesy wewnątrz białego bloku, dające więcej miejsca na tekst */
+        font-size: 1rem; /* Optymalna wielkość tekstu do czytania na telefonie */
+        line-height: 1.6;
+    }
+
+    .content-placeholder h2 {
+        font-size: 1.4rem !important; /* Zmniejszenie nagłówków wewnątrz tekstu */
+    }
+
+    .content-placeholder h3 {
+        font-size: 1.2rem !important;
+    }
+
+    /* Poprawa listy z ikonkami na telefonie */
+    .custom-list li {
+        align-items: flex-start; /* Sprawia, że ikona zostaje na górze, gdy tekst obok zawija się na dwie lub trzy linijki */
+    }
+
+    .custom-list i {
+        margin-top: 4px; /* Równa ikonę do pierwszej linijki tekstu */
+    }
+}
