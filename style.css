@@ -468,37 +468,33 @@ footer {
     line-height: 1.8;
 }
 
-/* Siatka Galerii */
+/* --- SIATKA GALERII (Dopasowana do czystych tagów IMG) --- */
 .gallery-grid {
     display: grid;
+    /* Automatycznie dopasowuje ilość kolumn, minimalna szerokość zdjęcia to 300px */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+    margin-top: 40px;
 }
 
-.gallery-item {
-    width: 100%;
-    height: 250px;
-    background-color: #e9ecef; /* Szary kolor tła dla pustego zdjęcia */
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #adb5bd;
-    font-size: 1.2rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
+/* Bezpośrednie formatowanie zdjęć (tagów img) wewnątrz siatki */
+.gallery-grid img {
+    width: 100%; /* Zdjęcie zajmuje całą dostępną szerokość kolumny */
+    height: 300px; /* SZTYWNA WYSOKOŚĆ - dzięki temu wszystkie kafelki są idealnie równe */
+    object-fit: cover; /* MEGA WAŻNE: sprawia, że zdjęcie przycina się do kształtu, a nie zniekształca/zgniata */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Delikatny cień */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: block; /* Usuwa dziwne marginesy pod zdjęciami */
     cursor: pointer;
 }
 
-.gallery-item i {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+/* Efekt najechania myszką na zdjęcie */
+.gallery-grid img:hover {
+    transform: scale(1.03); /* Delikatne powiększenie */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* Mocniejszy cień przy najechaniu */
 }
 
-.gallery-item:hover {
-    transform: scale(1.02); /* Delikatne powiększenie po najechaniu */
-}
 /* --- ZAKŁADKA USŁUGI --- */
 .services-header {
     padding: 140px 5% 40px;
@@ -676,5 +672,106 @@ footer {
 
     .content-placeholder h3 {
         font-size: 1.2rem !important;
+    }
+}
+/* --- LIGHTBOX (Pełny ekran dla zdjęć) --- */
+.lightbox {
+    display: none; /* Domyślnie ukryte, włącza się przez JS */
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(10, 37, 64, 0.95); /* Ciemno-granatowe, półprzezroczyste tło */
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox.active {
+    display: flex; /* Klasa dodawana, gdy klikniesz zdjęcie */
+}
+
+/* Powiększone zdjęcie */
+.lightbox img {
+    max-width: 90%;
+    max-height: 85vh;
+    object-fit: contain; /* Zdjęcie pokazuje się w całości, bez przycinania */
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    animation: zoomIn 0.3s ease-out; /* Płynne powiększenie */
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* Przycisk zamykania (X) */
+.close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: var(--white);
+    font-size: 50px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: color 0.3s;
+    z-index: 10000;
+}
+
+.close-lightbox:hover {
+    color: var(--sea-green);
+}
+
+/* Przyciski Następne/Poprzednie */
+.lightbox-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    border: none;
+    padding: 15px 25px;
+    font-size: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 10000;
+}
+
+.lightbox-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    color: var(--sea-green);
+}
+
+.prev-btn { left: 30px; }
+.next-btn { right: 30px; }
+
+/* Dopasowanie do telefonów */
+@media (max-width: 768px) {
+    .lightbox-btn { padding: 10px 15px; font-size: 20px; }
+    .prev-btn { left: 10px; }
+    .next-btn { right: 10px; }
+    .close-lightbox { top: 10px; right: 20px; font-size: 40px; }
+}
+
+/* --- ROZSZERZENIE GALERII NA CAŁY EKRAN KOPUTERA --- */
+.gallery-fullwidth {
+    max-width: 1800px !important; /* Pozwala galerii rozszerzyć się na prawie całą szerokość monitora */
+    padding: 0 2%; /* Zmniejsza puste marginesy po bokach */
+}
+
+.gallery-grid {
+    display: grid;
+    /* Zmniejszamy min-width do 280px, dzięki czemu na monitorze wejdzie nawet 5-6 zdjęć w rzędzie, a na telefonie idealnie wpasuje się 1 zdjęcie */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px; /* Delikatnie mniejsze przerwy między zdjęciami dla lepszego efektu */
+}
+
+/* Upewniamy się, że na telefonie marginesy są odpowiednie */
+@media (max-width: 768px) {
+    .gallery-fullwidth {
+        padding: 0 5%;
     }
 }
